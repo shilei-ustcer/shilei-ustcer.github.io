@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title> Shilei</title>
+</head>
+<body>
+<canvas width=400 height=400 style='border:1px solid; margin:0 auto; display:block;'></canvas>
+
+<script>
+
+	var canvas = document.getElementsByTagName('canvas')[0];
+	var width = canvas.width;
+	var height = canvas.height;
+	var len = 100;
+	
+	var context = canvas.getContext('2d');
+	
+	var count = 0;
+	
+	var angle = 45*Math.PI/180;
+
+        
+	
+	
+	function draw()
+	{
+		angle = count*Math.PI/180;
+		context.setTransform(1, 0, 0, 1, 0, 0);
+		
+		
+		context.fillStyle='#000000';
+		context.fillRect(0,0,canvas.width,canvas.height);
+		
+	
+		context.translate(200,height);
+		branch(len);
+		
+		count++;
+		
+	}
+	
+	function branch(len)
+	{
+		context.beginPath();	
+		context.strokeStyle = '#FFFFFF';
+		context.moveTo(0,0);
+		context.lineTo(0,-len);
+	//	context.lineWidth = 2;
+		context.stroke();
+		
+		context.translate(0,-len);
+		
+		if(len > 4)
+		{
+			context.save();
+			context.rotate(angle);
+			branch(len*0.67);
+			context.restore(); 
+			
+			context.save();
+			context.rotate(-angle);
+			branch(len*0.67);
+			context.restore();
+		}
+		
+		
+		
+	}
+	
+	
+	setInterval("draw()",1);
+	//draw();
+
+</script>
+</body>
+</html>
